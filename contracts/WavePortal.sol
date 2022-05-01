@@ -17,7 +17,7 @@ contract WavePortal {
 
     Wave[] waves;
 
-    constructor() {
+    constructor() payable{
         console.log("Yo yo, I am a contract and I am smart");
     }
 
@@ -29,9 +29,9 @@ contract WavePortal {
         emit NewWave(msg.sender, block.timestamp, _message);
 
         uint prizeAmount = 0.0001 ether;
-        require(prizeAmount <= address(this).balance, "Trying to withdraw more than the contract has");
-        (bool success, ) = (msg.sender).call{value: prizeAmount}("");
-        require(success, "Failed to withdraw money from contract.");
+        require(prizeAmount <= address(this).balance);
+        (bool success, ) = msg.sender.call{value: prizeAmount}("");
+        require(success, "Failed to withdraw money from contract");
     }
 
     function getTotalWaves() public view returns(uint) {
