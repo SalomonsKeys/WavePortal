@@ -12,8 +12,11 @@ const main = async () => {
     let contractBalance = await ethers.provider.getBalance(waveContract.address);
     console.log("Contract balance:", ethers.utils.formatEther(contractBalance));
 
-    let waveTxn = await waveContract.wave("Message from creator!");
+    const waveTxn = await waveContract.wave("This is wave #1!");
     await waveTxn.wait();
+
+    const waveTxn2 = await waveContract.wave("This is wave #2!");
+    await waveTxn2.wait();
 
     contractBalance = await ethers.provider.getBalance(waveContract.address); // A promise that returns a big number
     console.log("Contract balance:", ethers.utils.formatEther(contractBalance)); // formatEther turns our big number into a ether value
